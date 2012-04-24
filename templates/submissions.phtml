@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+<head>
+    <title>Submissions</title>
+</head>
+<body>
+    
+    <header style="margin-bottom: 40px;">
+        <h1><a href="/">Maker's Month Admin</a></h1>
+        <a href="/">Submissions</a> &middot; <a href="/syncs">Syncs</a>
+    </header>
+
+    <?php foreach ($this->data['submissions'] as $submission): ?>
+        <dl>
+            <dt>Id</dt>
+            <dd><a href="/submission/<?=htmlentities($submission['_id'])?>"><?=htmlentities($submission['_id'])?></a></dd>
+
+            <?php if (array_key_exists('date_updated', $submission)): ?>
+            <dt>Date Updated<dt>
+            <dd><?=date(DATE_ISO8601, $submission['date_updated'])?></dd>
+            <?php endif; ?>
+
+            <?php if (array_key_exists('title', $submission)): ?>
+            <dt>Title</dt>
+            <dd><?=htmlentities($submission['title'])?></dd>
+            <?php endif; ?>
+
+            <?php if (array_key_exists('content', $submission)): ?>
+            <dt>Content</dt>
+            <dd><?=htmlentities($submission['content'])?></dd>
+            <?php endif; ?>
+
+            <?php if (array_key_exists('is_approved', $submission)): ?>
+            <dt>Approved?</dt>
+            <dd><?=$submission['is_approved'] ? 'yes' : 'no'?></dd>
+            <?php endif; ?>
+
+            <?php if (array_key_exists('link', $submission)): ?>
+            <dt>Link</dt>
+            <dd><a href="<?=htmlentities($submission['link'])?>"><?=htmlentities($submission['link'])?></a></dd>
+            <?php endif; ?>
+        </dl>
+        <hr/>
+    <?php endforeach; ?>
+</body>
+</html>

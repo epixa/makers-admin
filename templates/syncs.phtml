@@ -1,0 +1,34 @@
+<!doctype html>
+<html>
+<head>
+    <title>Syncs</title>
+</head>
+<body>
+    
+    <header style="margin-bottom: 40px;">
+        <h1><a href="/">Maker's Month Admin</a></h1>
+        <a href="/">Submissions</a> &middot; <a href="/syncs">Syncs</a>
+    </header>
+
+    <form method="post" action="/syncs">
+        <input type="submit" value="Synchronize"/>
+    </form>
+
+    <h3>Past Synchronizations</h3>
+    <ul>
+    <?php foreach ($this->data['syncs'] as $sync): ?>
+        <li>
+            <?=htmlentities($sync['_id'])?>
+
+            <?php if (!empty($sync['date_created'])): ?>
+            started on <?=date(DATE_ISO8601, $sync['date_created'])?>
+            <?php endif; ?>
+
+            <?php if (!empty($sync['date_completed'])): ?>
+            completed on <?=date(DATE_ISO8601, $sync['date_completed'])?>
+            <?php endif; ?>
+        </li>
+    <?php endforeach; ?>
+    </ul>
+</body>
+</html>

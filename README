@@ -1,0 +1,3 @@
+This is the private admin panel to handle basic moderation and editing of maker's month submissions.
+
+Authentication must be handled by the web server.

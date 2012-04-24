@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+<head>
+    <title>Submission: <?=htmlentities($this->data['submission']->_id)?></title>
+    <script type="text/javascript" src="/js/zepto.min.js"></script>
+</head>
+<body>
+
+    <header style="margin-bottom: 40px;">
+        <h1><a href="/">Maker's Month Admin</a></h1>
+        <a href="/">Submissions</a> &middot; <a href="/syncs">Syncs</a>
+    </header>
+
+    <form action="/submission/<?=htmlentities($this->data['submission']->_id)?>">
+        <fieldset>
+            <input type="text" name="title" placeholder="Title" value="<?=htmlentities($this->data['submission']->title)?>"/>
+
+            <input type="text" name="link" placeholder="Link" value="<?=htmlentities($this->data['submission']->link)?>"/>
+
+            <textarea name="content" placeholder="Content"><?=htmlentities($this->data['submission']->content)?></textarea>
+
+            <?php if (!$this->data['submission']->is_approved): ?>
+            <label for="is_approved">Approve</label>
+            <input id="is_approved" type="checkbox" name="is_approved" value="1"/>
+            <?php endif; ?>
+
+            <button>Submit</button>
+        </fieldset>
+    </form>
+
+    <script type="text/javascript">
+        $('form').on('submit', function(event){
+            event.preventDefault();
+            var data = {};
+
+            $('input, textarea', this).each(function(){
+                var field = $(this);
+                var value = field.val();
+                if (field.attr('type') == 'checkbox' && !field.is(':checked')) {
+                    value = null;
+                }
+                data[field.attr('name')] = value;
+            });
+
+            $.ajax({
+                type: 'PUT',
+                url: $(this).attr('action'),
+                data: data,
+                success: function(){
+                    window.location.href = "/";
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
